@@ -21,6 +21,22 @@ fs.access(path.join(__dirname, 'files-copy'), function(err) {
       }
     });
   } else {
+    fs.readdir(path.join(__dirname, 'files-copy'), {withFileTypes: true}, (err, files) => {
+      if (err)
+        console.log(err);
+      else {
+        files.forEach(file => {
+          fsPromises.unlink((path.join(__dirname, 'files-copy', file.name)))
+            .then( function () {
+            })
+            . catch ( function (error) {
+              console.log(error);
+            });
+        });
+      }
+    });
+  
+
     fs.readdir(path.join(__dirname, 'files'), {withFileTypes: true}, (err, files) => {
       if (err)
         console.log(err);
